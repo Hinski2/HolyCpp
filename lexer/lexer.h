@@ -3,48 +3,31 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include "../utils/vector_types.h"
-
-// enums for binary operations
-typedef enum {
-    BOP_MULT,
-    BOP_DIV, 
-    BOP_ADD,
-    BOP_SUB,
-    BOP_EQ,
-    BOP_LT,
-    BOP_GT,
-    BOP_LEQ,
-    BOP_GEQ,
-    BOP_NEQ,
-} Bop;
-
-// enum for token types
-typedef enum {
-    TOK_INT,
-    TOK_DOUBLE,
-    TOK_BOOL,
-    TOK_BOP, 
-} TokenType;
-
-// struct for tokens
-typedef struct {
-    TokenType type;         // Token's type
-    union {                 // for numbers, it's value
-        int64_t i_val;
-        double d_val;
-        bool b_val;
-    };
-} Token;
+#include "../utils/vector/vector.h"
+#include "token.h"
 
 // tokenizer
 typedef struct {
-    char *line;
+    char *cursor;
     Vector_Token tokens;
     Vector_char buf;
-} Tokenizer;
+} Lexer;
 
-Tokenizer* Tokenizer_init(char *line);
-void Tokenizer_delete(Tokenizer *tokenizer);
+    // main
+// function that will create lexer, tokenize line and delete lexer
+Vector_Token* tokenize(char *line, size_t line_number); 
+
+    // constructor and destructor
+void lexer_init(Lexer *lexer, char *line);
+void lexer_delete(Lexer *lexer);
+
+    // utils for lexer
+// returns the next char and consume it
+char lexer_cursor_next(Lexer *lexer);
+// returns the next char without consiming it
+char lexer_cursor_peek(Lexer *lexer);
+
+    // debug
+void print_lexer(Lexer *lexer);
 
 #endif

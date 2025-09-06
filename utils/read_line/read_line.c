@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
-#include "handle_error.h"
+#include "../handle_error/handle_error.h"
 #include "read_line.h"
 
 char* read_line(FILE *file) {
@@ -10,7 +10,7 @@ char* read_line(FILE *file) {
 
     buff = malloc(capacity);
     if(!buff) {
-        handle_error();
+        handle_error("couldn't allocate memory");
         return NULL;
     }
 
@@ -21,7 +21,7 @@ char* read_line(FILE *file) {
             char *temp = realloc(buff, capacity);
 
             if(!temp) {
-                handle_error();
+                handle_error("couldn't allocate memory");
                 free(buff);
                 return NULL;
             }
