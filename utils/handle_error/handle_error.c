@@ -10,7 +10,7 @@ void handle_error(const char *fmt, ...) {
 
     fprintf(stderr, "{\n");
     fprintf(stderr, "    ERROR\n");
-    fprintf(stderr, "    err: %s", strerror(errno));
+    fprintf(stderr, "    err: %s\n", strerror(errno));
     fprintf(stderr, "    desc: "); vfprintf(stderr, fmt, args);
     fprintf(stderr, "\n}\n");
 

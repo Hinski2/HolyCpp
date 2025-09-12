@@ -1,9 +1,9 @@
-SRC_DIRS := . lexer parser eval utils/handle_error utils/read_line utils/vector
+SRC_DIRS := . lexer parser eval utils/handle_error utils/read_line data_structures/vector data_structures/pair
 TARGET := HolyCpp
 
 CC := cc
 STD := c17
-FLAGS := -std=$(STD) -Wall -Wextra -Wpedantic -g
+FLAGS := -std=$(STD) -Wall -Wextra -Wpedantic -g -fsanitize=address -fsanitize=undefined
 
 SRC := $(foreach d, $(SRC_DIRS), $(wildcard $(d)/*.c))
 OBJS := $(SRC:.c=.o)

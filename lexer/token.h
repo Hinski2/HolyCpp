@@ -4,40 +4,52 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-// enums for binary operations
-typedef enum {
-    BOP_NONE,   // if it's not a bop
-    BOP_MULT,
-    BOP_DIV,
-    BOP_ADD,
-    BOP_SUB,
-} Bop;
 
 // enum for token types
 typedef enum {
-    TOK_NONE,   // if it's not a token
-    TOK_INT,
-    TOK_FLOAT,
-    TOK_BOOL,
-    TOK_BOP,
-    TOK_L_PAREN,
-    TOK_R_PAREN,
+    // special
+    TOK_NONE,
     TOK_EOF,
+
+    // values
+    TOK_FLOAT,
+    TOK_INT,
+    TOK_BOOL,
+
+    // bop (binary operators)
+    TOK_ADD,        // +
+    TOK_SUB,        // -
+    TOK_MULT,       // *
+    TOK_DIV,        // /
+
+    TOK_EQ,         // ==
+    TOK_NEQ,        // !=
+    TOK_GEQ,        // >=
+    TOK_LEQ,        // <=
+    TOK_GT,         // >
+    TOK_LT,         // <
+    TOK_LOG_AND,    // and
+    TOK_LOG_OR,     // or
+    TOK_BIT_AND,    // &
+    TOK_BIT_OR,     // |  
+    TOK_XOR,        // ^
+    TOK_NOT,        // !
+
+    // paren
+    TOK_L_ROUND_PAREN,
+    TOK_R_ROUND_PAREN,
+
+    // counter
+    TOK_COUNT,
 } TokenType;
 
 // struct for tokens
 typedef struct {
     TokenType type;         // Token's type
-    union {
-        bool    b_val;
-        int64_t i_val;
-        double  f_val;
-
-        Bop bop_type;
-    };
+    void* value;
 } Token;
 
 // utils
-const char *bop_to_str(Bop bop);
+void print_token(Token token);
 
 #endif

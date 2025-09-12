@@ -7,6 +7,8 @@
 #include "utils/handle_error/handle_error.h"
 #include "lexer/lexer.h"
 
+//TODO make delete / deint for token
+
 int main(int argc, char *argv[]) {
     FILE *file = NULL;
 

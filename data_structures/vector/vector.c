@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include "vector.h"
-#include "../handle_error/handle_error.h"
+#include "../../utils/handle_error/handle_error.h"
 
 
 #define DECLARE_VECTOR(TYPE)                                                \
@@ -17,9 +17,32 @@ void Vector_##TYPE##_init(Vector_##TYPE *vec) {                             \
     }                                                                       \
 }                                                                           \
                                                                             \
+Vector_##TYPE* Vector_##TYPE##_new() {                                      \
+    Vector_##TYPE *vec = malloc(sizeof(Vector_##TYPE));                     \
+    if(!vec) {                                                              \
+        handle_error("couldn't alocate memory");                            \
+        exit(errno);                                                        \
+    }                                                                       \
+    vec -> capacity = 4;                                                    \
+    vec -> size = 0;                                                        \
+    vec -> vals = malloc(vec -> capacity * sizeof(TYPE));                   \
+    if(!vec -> vals) {                                                      \
+        handle_error("couldn't alocate memory");                            \
+        exit(errno);                                                        \
+    }                                                                       \
+                                                                            \
+    return vec;                                                             \
+}                                                                           \
+                                                                            \
+void Vector_##TYPE##_deinit(Vector_##TYPE *vec) {                           \
+    free(vec -> vals);                                                      \
+    vec -> capacity = vec -> size = 0;                                      \
+}                                                                           \
+                                                                            \
 void Vector_##TYPE##_delete(Vector_##TYPE *vec) {                           \
     free(vec -> vals);                                                      \
     vec -> capacity = vec -> size = 0;                                      \
+    free(vec);                                                              \
 }                                                                           \
                                                                             \
 void Vector_##TYPE##_push_back(Vector_##TYPE *vec, TYPE val) {              \

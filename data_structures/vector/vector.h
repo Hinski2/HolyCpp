@@ -16,6 +16,8 @@ typedef struct {                                                            \
 } Vector_##TYPE;                                                            \
                                                                             \
 void Vector_##TYPE##_init(Vector_##TYPE *vec);                              \
+void Vector_##TYPE##_deinit(Vector_##TYPE *vec);                            \
+Vector_##TYPE* Vector_##TYPE##_new();                                       \
 void Vector_##TYPE##_delete(Vector_##TYPE *vec);                            \
 void Vector_##TYPE##_push_back(Vector_##TYPE *vec, TYPE val);               \
 TYPE Vector_##TYPE##_get(Vector_##TYPE *vec, size_t idx);                   \

@@ -3,31 +3,23 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include "../utils/vector/vector.h"
+#include "../data_structures/vector/vector.h"
 #include "token.h"
 
 // tokenizer
 typedef struct {
-    char *cursor;
+    char *line;
     Vector_Token tokens;
-    Vector_char buf;
 } Lexer;
 
-    // main
 // function that will create lexer, tokenize line and delete lexer
 Vector_Token* tokenize(char *line, size_t line_number); 
 
-    // constructor and destructor
-void lexer_init(Lexer *lexer, char *line);
-void lexer_delete(Lexer *lexer);
+// constructor and destructor
+void lexer_init(Lexer *lexer, char *line); // lexer owns line
+void lexer_deinit(Lexer *lexer);
 
-    // utils for lexer
-// returns the next char and consume it
-char lexer_cursor_next(Lexer *lexer);
-// returns the next char without consiming it
-char lexer_cursor_peek(Lexer *lexer);
-
-    // debug
+// debug
 void print_lexer(Lexer *lexer);
 
 #endif
